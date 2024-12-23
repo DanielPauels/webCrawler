@@ -30,31 +30,52 @@ public class Crawler {
 		System.out.println("Starting crawl with seed URL: " + seedUrl);
 
 		// Add the seed URL with depth 0 to the queue.
-		urlFrontier.add(seedUrl, 0);
+		urlFrontier.add(seedUrl, 1);
+		System.out.println("Added URL to frontier: " + seedUrl);
 
 		// Continue crawling while there are URLs in the queue and the page limit is not
 		// reached.
 		while (!urlFrontier.isEmpty() && visitedSet.size() < maxPages) {
+
 			URLDepthPair current = urlFrontier.poll(); // Get the next URL from the queue.
-			String currentUrl = current.getUrl(); // The current URL.
-			int currentDepth = current.getDepth(); // The current depth.
+			if (current != null) {
 
-			// Skip the URL if it has already been visited or the depth exceeds the limit.
-			if (visitedSet.contains(currentUrl) || currentDepth > maxDepth) {
-				continue;
-			}
+				String currentUrl = current.getUrl(); // The current URL.
+				int currentDepth = current.getDepth(); // The current depth.
 
-			// Check if the URL is allowed by robots.txt.
-			if (robotsHandler.isAllowed(currentUrl)) {
-				// Fetch the HTML page.
+				if (visitedSet.contains(currentUrl)) {
+					System.out.println("Skipping already visited URL: " + currentUrl);
+					continue;
+				}
+				if (currentDepth > maxDepth) {
+					System.out.println("Skipping URL due to max depth: " + currentUrl);
+					continue;
+				}
+
+				// Check if the URL is allowed by robots.txt.
+				System.out.println("Checking robots.txt for URL: " + currentUrl);
+				if (robotsHandler.isAllowed(currentUrl)) {
+					System.out.println("Crawling allowed for URL: " + currentUrl);
+				} else {
+					System.out.println("Crawling disallowed for URL: " + currentUrl);
+					continue;
+				}
+
+				System.out.println("Fetching HTML for URL: " + currentUrl);
 				String html = htmlFetcher.fetch(currentUrl);
-				if (html != null) { // If the page was successfully fetched:
+				if (html != null) {
+					System.out.println("Fetched HTML for URL: " + currentUrl); // If the page was successfully fetched:
 					visitedSet.add(currentUrl); // Mark the URL as visited.
 					dataStorage.save(currentUrl, html); // Save the page content.
-					Set<String> links = htmlParser.extractLinks(html, currentUrl); // Extract links from the page.
+					Set<String> links = htmlParser.extractLinks(html, currentUrl);
+					System.out.println("Extracted " + links.size() + " links from URL: " + currentUrl);
 					urlFrontier.addAll(links, currentDepth + 1); // Add the links to the queue with updated depth.
+				} else {
+					System.out.println("Failed to fetch HTML for URL: " + currentUrl);
+					continue;
 				}
 			}
+
 		}
 	}
 }

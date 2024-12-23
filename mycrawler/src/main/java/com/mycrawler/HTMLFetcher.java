@@ -23,9 +23,11 @@ public class HTMLFetcher {
 				
 				//Read the HTML content line by line
 				while(scanner.hasNextLine()) {
+					System.out.println("Scanner has next line. Continuing to append...");
 					html.append(scanner.nextLine());
 				}
 				scanner.close();
+				return html.toString();
 			}
 			else {
 				System.err.println("Error fetching page: " + connection.getResponseCode());

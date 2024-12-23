@@ -13,8 +13,10 @@ public class VisitedSet {
 
     // Add a URL to the visited set.
     public void add(String url) {
+        System.out.println("Marking as visited: " + url);
         visited.add(url);
     }
+
 
     // Check if a URL has already been visited.
     public boolean contains(String url) {

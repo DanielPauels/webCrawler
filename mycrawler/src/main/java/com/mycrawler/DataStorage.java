@@ -7,7 +7,7 @@ import java.io.IOException;
 // Saves HTML data to a specified folder.
 public class DataStorage {
     // Define the path where HTML files will be saved.
-    private final String storagePath = "C:\\Users\\HTML_Pages";
+    private final String storagePath = "C:\\HTML_Archive";
 
     // Method to save HTML content to a file.
     public void save(String url, String html) {
@@ -17,7 +17,7 @@ public class DataStorage {
 
             // Create the full path for the file.
             File file = new File(storagePath + "\\" + filename);
-
+            
             // Ensure the directory exists. If not, create it.
             file.getParentFile().mkdirs();
 
