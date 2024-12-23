@@ -42,7 +42,6 @@ public class Crawler {
 			// Skip the URL if it has already been visited or the depth exceeds the limit.
 			if (visitedSet.contains(currentUrl) || currentDepth > maxDepth) {
 				continue;
-
 			}
 
 			// Check if the URL is allowed by robots.txt.
