@@ -50,7 +50,7 @@ Open Main.java and set your desired seed URL, maxDepth, and maxPages:
 java
 public static void main(String[] args) {
     Crawler crawler = new Crawler(2, 10); // Crawl depth of 2, maximum 10 pages
-    crawler.start("https://www.google.de"); // Replace with your seed URL
+    crawler.start("https://www.github.com"); // Replace with your seed URL
 }
 Run the program. The crawler will start fetching and saving pages.
 How It Works
