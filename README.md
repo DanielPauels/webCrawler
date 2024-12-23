@@ -84,7 +84,7 @@ Example Output:
 The console will display logs for each step:
 csharp
 Code kopieren
-Starting crawl with seed URL: https://www.google.de
+Starting crawl with seed URL: https://www.github.com
 Fetching content for: https://www.github.com
 Saved HTML content to: C:\Users\XXX\www_github_com.html
 HTML files are stored in the specified directory.
